@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Eternal Backlog</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="next_episode">You should watch %s next.</string>
+    <string name="add_new_series">Add a new series</string>
+    <string name="show_list">Show List</string>
+
+</resources>
