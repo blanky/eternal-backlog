@@ -1,27 +1,27 @@
 package com.example.eternalbacklog;
 
 public class Series {
-	private int next_to_watch;
-	private int total_eps;
-	private int internal_count;
+	private Integer next_to_watch;
+	private Integer total_eps;
+	private Integer internal_count;
 	private String series_name;
 	
-	public Series(String series_name, int total_eps, int next_to_watch) {
+	public Series(String series_name, Integer total_eps, Integer next_to_watch) {
 		this.setN2W(next_to_watch);
 		this.setIC(next_to_watch);
 		this.setSN(series_name);
 		this.setTE(total_eps);
 	}
 
-	public int getN2W() {
+	public Integer getN2W() {
 		return next_to_watch;
 	}
 	
-	public int getTE() {
+	public Integer getTE() {
 		return total_eps;
 	}
 
-	public int getIC() {
+	public Integer getIC() {
 		return internal_count;
 	}
 	
@@ -30,15 +30,15 @@ public class Series {
 	}
 	
 	
-	public void setN2W(int next_to_watch) {
+	public void setN2W(Integer next_to_watch) {
 		this.next_to_watch = next_to_watch;
 	}
 
-	public void setTE(int total_eps) {
+	public void setTE(Integer total_eps) {
 		this.total_eps = total_eps;
 	}
 
-	public void setIC(int internal_count) {
+	public void setIC(Integer internal_count) {
 		this.internal_count = internal_count;
 	}
 

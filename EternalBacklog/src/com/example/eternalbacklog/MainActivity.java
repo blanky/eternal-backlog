@@ -14,7 +14,8 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		this.listAvailable();
+		this.seriesListAvailable();
+		this.episodeListAvailable();
 	}
 
 	@Override
@@ -24,13 +25,15 @@ public class MainActivity extends Activity {
 		return true;
 	}
 	
-	private boolean listAvailable() {
-		File temp_file = new File("list.csv");
+	private boolean seriesListAvailable() {
+		File series_file = new File("series_list.csv");
 		try {
-			Log.d(LOG, temp_file.getCanonicalPath());
-			if(temp_file.exists()) {
+			Log.d(LOG, series_file.getCanonicalPath());
+			if(series_file.exists()) {
+				Log.d(LOG, "series file exists");
 				return true;
 			}
+			Log.d(LOG, "series file doesn't exist");
 			return false;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -38,7 +41,24 @@ public class MainActivity extends Activity {
 			Log.d(LOG, "Path lookup failed");
 		}
 		return false;
-		
+	}
+	
+	private boolean episodeListAvailable() {
+		File series_file = new File("episode_list.csv");
+		try {
+			Log.d(LOG, series_file.getCanonicalPath());
+			if(series_file.exists()) {
+				Log.d(LOG, "episode file exists");
+				return true;
+			}
+			Log.d(LOG, "episode file doesn't exist");
+			return false;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Log.d(LOG, "Path lookup failed");
+		}
+		return false;
 	}
 
 }
