@@ -8,13 +8,24 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <TextView android:id="@+id/next_episode_text"
+    
+    <shape 
+        android:shape="rectangle" 
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="@string/next_episode"
-        android:textSize="18sp" />
+        android:layout_height="wrap_content" >
+        <TextView android:id="@+id/next_episode_text"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="@string/next_episode"
+        	android:textSize="18sp" />
+        <gradient 
+            android:startColor="#ECECEC"
+            android:centerColor="#F6F6F4"
+            android:endColor="#F8F8F6"
+            android:angle="90"
+            android:dither="true"
+         />
+    </shape>
     
     <Button android:id="@+id/add_new_series_button"
         android:layout_width="wrap_content"
