@@ -1,10 +1,7 @@
 package com.example.eternalbacklog;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,11 +9,12 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
 import android.view.Menu;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 	private static final String LOG = "LogNotes";
-	private static final String SERIES = "series_list.csv";
-	private static final String EPISODES = "episode_list.csv";
+	private static final String SERIES = ".series_list.csv";
+	private static final String EPISODES = ".episode_list.csv";
 	private ArrayList<Episode> episode_list = new ArrayList<Episode>();
 	private ArrayList<Series> series_list = new ArrayList<Series>();
 	
@@ -26,11 +24,15 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		if(((this.seriesListAvailable())!=(this.episodeListAvailable()))) {
 			corruptSaves();
+			setNextEpisodeText("Corrupted saves.");
 		}
-		if(!(this.seriesListAvailable())) {
-			nothingToRead();
-		} else {
+		if(this.seriesListAvailable()) {
 			readLists();
+			setNextEpisodeText("You should watch " 
+					+ episode_list.get(0).getEpisode() + " next.");
+		} else {
+			nothingToRead();
+			setNextEpisodeText("You have nothing to watch.");
 		}
 		
 	}
@@ -84,15 +86,16 @@ public class MainActivity extends Activity {
 			while(episode_scanner.hasNextLine()) {
 				String[] temp_storage = episode_scanner.nextLine().split(",");
 				if(temp_storage.length != 2) {
-					corruptSaves();
+					throw new Exception();
 				}
 				Episode temp_episode = new Episode(temp_storage[0], 
 						Integer.parseInt(temp_storage[1]));
 				episode_list.add(temp_episode);
 			}
+			episode_scanner.close();
+			episode_reader.close();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			corruptSaves();
 		}
 	}
 
@@ -100,14 +103,33 @@ public class MainActivity extends Activity {
 
 
 	private void readSeries() {
-		// TODO Auto-generated method stub
-		
+		try {
+			FileReader series_reader = new FileReader(SERIES);
+			@SuppressWarnings("resource")
+			Scanner series_scanner = new Scanner(series_reader);
+			while(series_scanner.hasNextLine()) {
+				String[] temp_storage = series_scanner.nextLine().split(",");
+				if(temp_storage.length != 3) {
+					throw new Exception();
+				}
+				Series temp_series = new Series(temp_storage[0], 
+						Integer.parseInt(temp_storage[1]), 
+						Integer.parseInt(temp_storage[2]));
+				series_list.add(temp_series);
+			}
+			series_scanner.close();
+			series_reader.close();
+		} catch (Exception e) {
+			corruptSaves();
+		}
 	}
-
-
-
 
 	private void nothingToRead() {
 		
+	}
+	
+	private void setNextEpisodeText(String text) {
+		TextView textView = (TextView) findViewById(R.id.next_episode_text);
+		textView.setText(text);
 	}
 }
